@@ -1,0 +1,14 @@
+{
+  "name": "nextjs-basic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "develop": "next",
+    "build": "next build",
+    "start": "next start"
+  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
