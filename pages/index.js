@@ -17,14 +17,12 @@ class Index extends SuperComponent {
         return { initialData: [1, 2, 3, 4], userData };
     }
 
-
     constructor(props) {
         super(props);
         this.state = {
             title: 'I am Index Page'
         };
     }
-
 
     updateTitle = () => {
         this.setState({ title: 'I am Updated Index Page' });
