@@ -3,6 +3,7 @@ import axios from 'axios';
 import BaseLayout from '../components/layouts/BaseLayout';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+// import { Link } from '../routes';
 
 class PortFolios extends Component {
 
@@ -25,7 +26,7 @@ class PortFolios extends Component {
                     <Link href="/portfolio/[id]" as={`/portfolio/${post.id}`}>
                         {<a style={{ 'fontSize': '20px' }}> {post.title} </a>}
                     </Link>
-                </li>
+                </li >
             );
         });
     }

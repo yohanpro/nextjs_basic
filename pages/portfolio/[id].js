@@ -21,7 +21,6 @@ class Portfolio extends React.Component {
         console.log(this.props);
         return (
             <BaseLayout>
-
                 <h1>{post.title}</h1>
                 <h1>{this.props.router.query.id}</h1>
             </BaseLayout>
