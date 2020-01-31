@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import BaseLayout from '../components/layouts/BaseLayout';
-
+import Typed from 'react-typed';
 
 import { Row, Col, Button, Container } from 'reactstrap';
 
 
 class Index extends Component {
-
+    constructor(props) {
+        super(props);
+        this.roles = ["Developer", "Blogger", "React.js"];
+    }
     render() {
         return (
             <BaseLayout className="cover">
@@ -40,12 +43,24 @@ class Index extends Component {
                                     <h1>
                                         Welcome to the portfolio website of Filip Jerga.
                                         Get informed, collaborate and discover projects I was working on through the years!
-            </h1>
+                                    </h1>
                                 </div>
+                                <Typed
+                                    strings={this.roles}
+                                    typeSpeed={70}
+                                    backSpeed={70}
+                                    backDelay={1000}
+                                    cursorChar="l"
+                                    loopCount={0}
+                                    className="self-typed"
+                                    loop
+                                >
+
+                                </Typed>
                                 <div className="hero-welcome-bio">
                                     <h1>
                                         Let's take a look on my work.
-            </h1>
+                                    </h1>
                                 </div>
                             </Col>
                         </Row>
