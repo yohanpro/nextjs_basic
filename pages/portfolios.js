@@ -40,7 +40,6 @@ class PortFolios extends Component {
                 <ul>
                     {this.renderPosts(posts)}
                 </ul>
-
             </BaseLayout>
         );
     }
