@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'reactstrap';
-import PropTypes from 'prop-types';
+
 
 const BasePage = props => {
     const className = props.className || '';
@@ -14,7 +14,7 @@ const BasePage = props => {
     );
 };
 
-BasePage.propTypes = {
-    className: PropTypes.any.isRequired
+BasePage.defaultProps = {
+    className: ""
 };
 export default BasePage;
