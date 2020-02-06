@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import auth0Client from '../../services/auth0';
 import Link from 'next/link';
 import {
   Collapse,
@@ -23,7 +24,7 @@ const BsNavLink = prop => {
 
 const Login = () => {
   return (
-    <span className="nav-link port-navbar-link clickable" >Login</span>
+    <span onClick={auth0Client.login} className="nav-link port-navbar-link clickable" >Login</span>
   );
 };
 const Logout = () => {
