@@ -18,7 +18,7 @@ class Auth0 {
     handleAuthentication() {
         return new Promise((resolve, reject) => {
             this.auth0.parseHash((err, authResult) => {
-                debugger;
+
                 if (authResult && authResult.accessToken && authResult.idToken) {
                     this.setSession(authResult);
                     resolve();
@@ -43,13 +43,13 @@ class Auth0 {
     }
     isAuthenticated() {
         const expiresAt = Cookies.getJSON('expiresAt');
-        return new Date().getTime() < expiresAt;
 
+        return new Date().getTime() < expiresAt;
     }
     logout() {
         Cookies.remove('user');
         Cookies.remove('jwt');
-        Cookies.remove('expiersdAt');
+        Cookies.remove('expiresAt');
         this.auth0.logout({
             returnTo: '',
             clientID: 'akEPVW71HpnNNu4hlbJ6h6BDd4YOVvO0'

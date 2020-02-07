@@ -29,7 +29,7 @@ const Login = () => {
 };
 const Logout = () => {
   return (
-    <span className="nav-link port-navbar-link clickable" >Logout</span>
+    <span onClick={auth0Client.logout} className="nav-link port-navbar-link clickable" >Logout</span>
   );
 };
 const Header = (props) => {
@@ -59,12 +59,18 @@ const Header = (props) => {
             <NavItem className="port-navbar-item">
               <BsNavLink route="/cv" title="CV" />
             </NavItem>
-            <NavItem className="port-navbar-item">
-              <Login />
-            </NavItem>
-            <NavItem className="port-navbar-item">
-              <Logout />
-            </NavItem>
+            {
+              !auth0Client.isAuthenticated() &&
+              <NavItem className="port-navbar-item">
+                <Login />
+              </NavItem>
+            }
+            {
+              auth0Client.isAuthenticated() &&
+              <NavItem className="port-navbar-item">
+                <Logout />
+              </NavItem>
+            }
           </Nav>
         </Collapse>
       </Navbar>
