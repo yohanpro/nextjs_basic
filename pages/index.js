@@ -11,8 +11,9 @@ class Index extends Component {
         this.roles = ["Developer", "Blogger", "React.js"];
     }
     render() {
+        console.log('Index', this.props);
         return (
-            <BaseLayout className="cover">
+            <BaseLayout className="cover" {...this.props.auth}>
                 <div className="main-section">
                     <div className="background-image">
                         <img src="/static/images/background-index.png" />

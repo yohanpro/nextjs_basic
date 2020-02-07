@@ -18,7 +18,6 @@ class Auth0 {
     handleAuthentication() {
         return new Promise((resolve, reject) => {
             this.auth0.parseHash((err, authResult) => {
-
                 if (authResult && authResult.accessToken && authResult.idToken) {
                     this.setSession(authResult);
                     resolve();
@@ -39,11 +38,11 @@ class Auth0 {
     }
 
     login() {
+        debugger;
         this.auth0.authorize();
     }
     isAuthenticated() {
         const expiresAt = Cookies.getJSON('expiresAt');
-        console.log('isAuth', new Date().getTime() < expiresAt);
         return new Date().getTime() < expiresAt;
     }
     logout() {
@@ -61,7 +60,6 @@ class Auth0 {
     }
 
     serverAuth(req) {
-        console.log('server', req.headers.cookie);
         if (req.headers.cookie) {
             const expiresAtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith("expiresAt="));
             if (!expiresAtCookie) return undefined;
