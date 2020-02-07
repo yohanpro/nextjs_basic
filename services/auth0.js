@@ -43,7 +43,7 @@ class Auth0 {
     }
     isAuthenticated() {
         const expiresAt = Cookies.getJSON('expiresAt');
-
+        console.log('isAuth', new Date().getTime() < expiresAt);
         return new Date().getTime() < expiresAt;
     }
     logout() {
@@ -54,6 +54,21 @@ class Auth0 {
             returnTo: '',
             clientID: 'akEPVW71HpnNNu4hlbJ6h6BDd4YOVvO0'
         });
+    }
+
+    clientAuth() {
+        return this.isAuthenticated();
+    }
+
+    serverAuth(req) {
+        console.log('server', req.headers.cookie);
+        if (req.headers.cookie) {
+            const expiresAtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith("expiresAt="));
+            if (!expiresAtCookie) return undefined;
+
+            const expiresAt = expiresAtCookie.split('=')[1];
+            return new Date().getTime() < expiresAt;
+        }
     }
 };
 
