@@ -34,7 +34,6 @@ const Logout = () => {
 };
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log('header', props);
   const { isAuthenticated } = props;
 
   const toggle = () => setIsOpen(!isOpen);
