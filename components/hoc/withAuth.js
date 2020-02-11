@@ -9,7 +9,6 @@ export default function (Component) {
             return { ...pageProps };
         }
         renderProtectedPage() {
-            debugger;
             const { isAuthenticated } = this.props.auth;
             if (isAuthenticated) {
                 return (
