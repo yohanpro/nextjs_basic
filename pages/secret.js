@@ -10,13 +10,6 @@ class Secret extends React.Component {
 
         return { superSecretValue };
     }
-
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         secretData: []
-    //     };
-    // }
     state = {
         secretData: []
     };
