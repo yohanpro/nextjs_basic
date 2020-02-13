@@ -3,7 +3,7 @@ import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/BasePage';
 import withAuth from '../components/hoc/withAuth';
 import axios from 'axios';
-
+import { getSecretData } from '../actions';
 class Secret extends React.Component {
     static async getInitialProps() {
         const superSecretValue = 'Super Secret';
@@ -14,7 +14,7 @@ class Secret extends React.Component {
         secretData: []
     };
     async componentDidMount() {
-        const res = await axios.get('http://localhost:3000/api/v1/secret');
+        const res = getSecretData();
         const secretData = res.data;
         this.setState({
             secretData
