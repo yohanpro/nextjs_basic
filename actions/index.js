@@ -13,7 +13,6 @@ const setAuthHeader = req => {
 export const getSecretData = async (req) => {
 
     const url = 'http://localhost:3000/api/v1/secret';
-    debugger;
     return await axios.get(url, setAuthHeader(req))
         .then(response => response.data);
 };
