@@ -24,6 +24,9 @@ app.prepare()
         server.get('/api/v1/secret', authServices.checkJWT, (req, res) => {
             return res.json(secretData);
         });
+        server.get('/api/v1/onlysiteowner', authServices.checkJWT, authServices.checkRole("siteOwner"), (req, res) => {
+            return res.json(secretData);
+        });
         server.get('*', (req, res) => {
             return handle(req, res);
         });
