@@ -25,7 +25,7 @@ export default role => Component =>
             if (!isAuthenticated) {
                 return (
                     <BaseLayout {...this.props.auth}>
-                        <BasePage>
+                        <BasePage className="base-page">
                             <h1>You are not Authenticated yet</h1>
                         </BasePage>
                     </BaseLayout>
@@ -33,7 +33,7 @@ export default role => Component =>
             } else if (!isAuthorized) {
                 return (
                     <BaseLayout {...this.props.auth}>
-                        <BasePage>
+                        <BasePage className="base-page">
                             <h1>You are not Authorized yet</h1>
                         </BasePage>
                     </BaseLayout>
