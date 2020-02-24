@@ -4,18 +4,20 @@ import React from 'react';
 class PortFolioCreateFrom extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { value: '' };
+        this.state = { title: '', description: '', language: 'coconut' };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     handleChange(event) {
-        this.setState({ value: event.target.value });
+        const field = event.target.name;
+        this.setState({ [field]: event.target.value });
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
+        alert('A name was submitted: ' + this.state.title);
         event.preventDefault();
     }
 
@@ -24,10 +26,21 @@ class PortFolioCreateFrom extends React.Component {
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Name:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
+                <input name="title" type="text" value={this.state.value} onChange={this.handleChange} />
                 </label>
-                <input type="submit" value="Submit" />
-            </form>
+
+                <label>
+                    Description:
+                 <textarea name="description" value={this.state.description} onChange={this.handleChange} />
+                </label>
+                <select name="language" value={this.state.select} onChange={this.handleChange}>
+                    <option value="grapefruit">Grapefruit</option>
+                    <option value="lime">Lime</option>
+                    <option value="coconut">Coconut</option>
+                    <option value="mango">Mango</option>
+                </select>
+                <input n type="submit" value="Submit" />
+            </form >
         );
     }
 }
