@@ -12,7 +12,11 @@ class PortfolioNew extends React.Component {
         return (
             <BaseLayout title="PortFolio create Page" {...this.props.auth}>
                 <BasePage className="portfolio-create-page" title="portfolio-create-page">
-                    <PortFolioCreateFrom />
+                    <Row>
+                        <Col md="6">
+                            <PortFolioCreateFrom />
+                        </Col>
+                    </Row>
                 </BasePage>
             </BaseLayout>
         );
