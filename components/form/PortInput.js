@@ -1,21 +1,22 @@
-
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 
 
 const PortInput = ({
     label,
     type,
-    field,
-    form: { touched, errors },
+    field, // { name, value, onChange, onBlur }
+    form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
     ...props
-}) => (
+}) => {
+    return (
         <FormGroup>
             <Label>{label}</Label>
-            <Input className="form-control" type={type} {...field} {...props} />
+            <Input type={type} {...field} {...props} />
             {touched[field.name] &&
-                errors[field.name] && <div className="error">{errors[field.name]}</div>
-            }
+                errors[field.name] && <div className="error">{errors[field.name]}</div>}
         </FormGroup>
     );
+};
+
 
 export default PortInput;
