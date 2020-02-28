@@ -1,6 +1,8 @@
 const express = require('express');
 const next = require('next');
 const routes = require('../routes.js');
+const mongoose = require('mongoose');
+
 const app = next({ dev: process.env.NODE_ENV !== 'production' });
 const handle = routes.getRequestHandler(app);
 const authServices = require('./services/auth');
@@ -18,6 +20,12 @@ const secretData = [
 
     }
 ];
+
+mongoose.connect('', { useNewUrlParser: true })
+    .then(() => {
+        console.log('Database Connected');
+    })
+    .catch(err => console.log(err));
 app.prepare()
     .then(() => {
         const server = express();
