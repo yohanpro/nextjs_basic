@@ -7,6 +7,7 @@ const app = next({ dev: process.env.NODE_ENV !== 'production' });
 const handle = routes.getRequestHandler(app);
 const authServices = require('./services/auth');
 const config = require('./config');
+const Book = require('./models/book');
 // With express
 
 const secretData = [
@@ -26,9 +27,24 @@ mongoose.connect(config.DB_URI, { useNewUrlParser: true, useUnifiedTopology: tru
         console.log('Database Connected');
     })
     .catch(err => console.log(err));
+
 app.prepare()
     .then(() => {
         const server = express();
+        server.use(express.json());
+        server.use(express.urlencoded({ extended: true }));
+        server.post('/api/v1/book', (req, res) => {
+            const bookData = req.body;
+            const book = new Book(bookData);
+
+            book.save()
+                .then((err, createBook) => {
+                    if (err) return res.status(422).send(err);
+                    return res.json(createBook);
+                });
+
+        });
+
         server.get('/api/v1/secret', authServices.checkJWT, (req, res) => {
             return res.json(secretData);
         });
