@@ -72,7 +72,7 @@ const PortfolioCreateForm = ({ initialValues, onSubmit, error }) => (
                     }
                     <Button color="success" size="lg" type="submit" disabled={isSubmitting}>
                         Create
-          </Button>
+                    </Button>
                 </Form>
             )}
         </Formik>

@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const app = next({ dev: process.env.NODE_ENV !== 'production' });
 const handle = routes.getRequestHandler(app);
 const authServices = require('./services/auth');
-
+const config = require('./config');
 // With express
 
 const secretData = [
@@ -21,7 +21,7 @@ const secretData = [
     }
 ];
 
-mongoose.connect('', { useNewUrlParser: true })
+mongoose.connect(config.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Database Connected');
     })
