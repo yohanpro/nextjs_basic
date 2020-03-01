@@ -7,7 +7,9 @@ const app = next({ dev: process.env.NODE_ENV !== 'production' });
 const handle = routes.getRequestHandler(app);
 const authServices = require('./services/auth');
 const config = require('./config');
+
 const bookRouter = require('./routes/book');
+const portfolioRouter = require('./routes/portfolio');
 // With express
 
 const secretData = [
@@ -35,6 +37,7 @@ app.prepare()
         server.use(express.urlencoded({ extended: true }));
 
         server.use('/api/v1/books', bookRouter);
+        server.use('/api/v1/portfolios', portfolioRouter);
 
         server.get('/api/v1/secret', authServices.checkJWT, (req, res) => {
             return res.json(secretData);

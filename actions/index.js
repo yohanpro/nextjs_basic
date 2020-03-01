@@ -11,11 +11,16 @@ const setAuthHeader = req => {
     return undefined;
 };
 export const getSecretData = async (req) => {
-
     const url = 'http://localhost:3000/api/v1/secret';
     return await axios.get(url, setAuthHeader(req))
         .then(response => response.data);
 };
+
+export const getPortFolios = async (req)=>{
+    const url = 'http://localhost:3000/api/v1/portfolios';
+    return await axios.get(url,setAuthHeader(req))
+    .then(response=>response.data)
+}
 export const createPortfolio = async (portfolioData) => {
     return await axiosInstance.post('/portfolios', portfolioData, setAuthHeader())
       .then(response => response.data)
