@@ -2,7 +2,10 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { getCookieFromReq } from '../helpers/utils';
 
-
+const axiosInstance = axios.create({
+    baseURL:'http://localhost:3000/api/v1/',
+    timeout:3000
+})
 const setAuthHeader = req => {
     const token = req ? getCookieFromReq(req, 'jwt') : Cookies.getJSON('jwt');
     if (token) {
@@ -11,14 +14,14 @@ const setAuthHeader = req => {
     return undefined;
 };
 export const getSecretData = async (req) => {
-    const url = 'http://localhost:3000/api/v1/secret';
-    return await axios.get(url, setAuthHeader(req))
+    const url = '/secret';
+    return await axiosInstance.get(url, setAuthHeader(req))
         .then(response => response.data);
 };
 
-export const getPortFolios = async (req)=>{
-    const url = 'http://localhost:3000/api/v1/portfolios';
-    return await axios.get(url,setAuthHeader(req))
+export const getPortFolios = async ()=>{
+    const url = '/portfolios';
+    return await axiosInstance.get(url)
     .then(response=>response.data)
 }
 export const createPortfolio = async (portfolioData) => {

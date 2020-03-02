@@ -20,20 +20,18 @@ class PortFolios extends Component {
         return { portfolios };
     }
 
-    renderPosts(posts) {
-
-        return posts.map((post, index) => {
-            console.log(post);
+    renderPosts(portfolios) {
+        return portfolios.map((portfolio, index) => {
             return (
                 <Col key={index} md="4">
                     <React.Fragment>
                         <span>
                             <Card className="portfolio-card">
-                                <CardHeader className="portfolio-card-header">{post.position}</CardHeader>
+                                <CardHeader className="portfolio-card-header">{portfolio.position}</CardHeader>
                                 <CardBody>
-                                    <p className="portfolio-card-city"> {post.location} </p>
-                                    <CardTitle className="portfolio-card-title">{post.title}</CardTitle>
-                                    <CardText className="portfolio-card-text">{post.description}</CardText>
+                                    <p className="portfolio-card-city"> {portfolio.location} </p>
+                                    <CardTitle className="portfolio-card-title">{portfolio.title}</CardTitle>
+                                    <CardText className="portfolio-card-text">{portfolio.description}</CardText>
                                     <div className="readMore"> </div>
                                 </CardBody>
                             </Card>
@@ -46,13 +44,13 @@ class PortFolios extends Component {
     }
 
     render() {
-        const { posts } = this.props;
+        const { portfolios } = this.props;
 
         return (
             <BaseLayout {...this.props.auth}>
                 <BasePage className="portfolio-page" title="Portfolios">
                     <Row>
-                        {this.renderPosts(posts)}
+                        {this.renderPosts(portfolios)}
                     </Row>
                 </BasePage>
             </BaseLayout>
