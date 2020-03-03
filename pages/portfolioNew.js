@@ -25,7 +25,6 @@ class PortfolioNew extends React.Component {
 
     constructor(props) {
         super();
-
         this.state = {
             error: undefined
         };
@@ -42,7 +41,7 @@ class PortfolioNew extends React.Component {
                 this.setState({ error: undefined });
                 Router.pushRoute('/portfolios');
             })
-            .catch((err) => {
+            .catch(err => {
                 const error = err.message || 'Server Error!';
                 setSubmitting(false);
                 this.setState({ error });

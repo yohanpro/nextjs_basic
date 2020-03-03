@@ -5,13 +5,24 @@ import { getCookieFromReq } from '../helpers/utils';
 const axiosInstance = axios.create({
     baseURL:'http://localhost:3000/api/v1/',
     timeout:3000
-})
+});
+
+const rejectPromise = resError=>{
+let error = {};
+if(resError && resError.response &&resError.response.data){
+    error=resError.response.data;
+}else{
+    error= resError
+}
+return Promise.reject(error)
+}
+
 const setAuthHeader = req => {
     const token = req ? getCookieFromReq(req, 'jwt') : Cookies.getJSON('jwt');
     if (token) {
         return { headers: { 'authorization': `Bearer ${token}` } };
     }
-    return undefined;
+      return undefined;
 };
 export const getSecretData = async (req) => {
     const url = '/secret';
