@@ -9,11 +9,11 @@ const axiosInstance = axios.create({
 
 const rejectPromise = resError=>{
 let error = {};
-if(resError && resError.response &&resError.response.data){
-    error=resError.response.data;
-}else{
-    error= resError
-}
+    if(resError && resError.response &&resError.response.data){
+        error=resError.response.data;
+    }else{
+        error= resError
+    }
 return Promise.reject(error)
 }
 
@@ -34,6 +34,11 @@ export const getPortFolios = async ()=>{
     const url = '/portfolios';
     return await axiosInstance.get(url)
     .then(response=>response.data)
+}
+
+export const getPortFolioById= async (id)=>{
+    console.log('getid', id)
+    return await axiosInstance.get(`/portfolios/${id}`).then(response=>response.data);
 }
 export const createPortfolio = async (portfolioData) => {
     return await axiosInstance.post('/portfolios', portfolioData, setAuthHeader())
