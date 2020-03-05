@@ -3,9 +3,10 @@ import axios from 'axios';
 import BaseLayout from '../components/layouts/BaseLayout';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { Col, Row, Card, CardHeader, CardBody, CardTitle, CardText } from 'reactstrap';
+import { Col, Row, Card, CardHeader, CardBody, CardTitle, CardText, Button } from 'reactstrap';
 import BasePage from '../components/BasePage';
 import { getPortFolios } from '../actions/index';
+import { Router } from '../routes';
 // import { Link } from '../routes';
 
 class PortFolios extends Component {
@@ -32,8 +33,16 @@ class PortFolios extends Component {
                                     <p className="portfolio-card-city"> {portfolio.location} </p>
                                     <CardTitle className="portfolio-card-title">{portfolio.title}</CardTitle>
                                     <CardText className="portfolio-card-text">{portfolio.description}</CardText>
-                                    <div className="readMore"> </div>
+                                    <div className="readMore">
+                                        {
+
+                                            <React.Fragment>
+                                                <Button onClick={() => Router.pushRoute(`/portfolio/${portfolio._id}/edit`)} color="warning">Edit</Button>{' '}
+                                                <Button color="danger">Update</Button>
+                                            </React.Fragment>
+                                        } </div>
                                 </CardBody>
+
                             </Card>
                         </span>
                     </React.Fragment>
@@ -49,6 +58,7 @@ class PortFolios extends Component {
         return (
             <BaseLayout {...this.props.auth}>
                 <BasePage className="portfolio-page" title="Portfolios">
+                    <Button className="create-port-btn" color="success" onClick={() => Router.pushRoute('/portfolioNew')}>Create Portfolio</Button>
                     <Row>
                         {this.renderPosts(portfolios)}
                     </Row>

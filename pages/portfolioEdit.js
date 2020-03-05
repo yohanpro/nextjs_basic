@@ -5,7 +5,7 @@ import PortfolioCreateForm from '../components/portfolios/PortfolioCreateForm';
 
 import { Row, Col } from 'reactstrap';
 
-import { createPortfolio, getPortFolioById } from '../actions';
+import { updatePortfolio, getPortFolioById } from '../actions';
 
 import withAuth from '../components/hoc/withAuth';
 import { Router } from '../routes';
@@ -18,9 +18,8 @@ class PortfolioEdit extends React.Component {
         try {
             portfolio = await getPortFolioById(query.id);
         } catch (error) {
-            // console.error(error);
+            console.error(error);
         }
-        console.log('portfolo', portfolio);
         return { portfolio };
     }
 
@@ -30,23 +29,23 @@ class PortfolioEdit extends React.Component {
             error: undefined
         };
 
-        this.savePortfolio = this.savePortfolio.bind(this);
+        this.updatePortfolio = this.updatePortfolio.bind(this);
     }
 
-    savePortfolio(portfolioData, { setSubmitting }) {
-        // setSubmitting(true);
-
-        // createPortfolio(portfolioData)
-        //     .then((portfolio) => {
-        //         setSubmitting(false);
-        //         this.setState({ error: undefined });
-        //         Router.pushRoute('/portfolios');
-        //     })
-        //     .catch(err => {
-        //         const error = err.message || 'Server Error!';
-        //         setSubmitting(false);
-        //         this.setState({ error });
-        //     });
+    updatePortfolio(portfolioData, { setSubmitting }) {
+        setSubmitting(true);
+        // debugger;
+        updatePortfolio(portfolioData)
+            .then((portfolio) => {
+                setSubmitting(false);
+                this.setState({ error: undefined });
+                Router.pushRoute('/portfolios');
+            })
+            .catch(err => {
+                const error = err.message || 'Server Error!';
+                setSubmitting(false);
+                this.setState({ error });
+            });
     }
 
     render() {
@@ -55,12 +54,12 @@ class PortfolioEdit extends React.Component {
 
         return (
             <BaseLayout {...this.props.auth}>
-                <BasePage className="portfolio-create-page" title="Create New Portfolio">
+                <BasePage className="portfolio-create-page" title="Update Portfolio">
                     <Row>
                         <Col md="6">
                             <PortfolioCreateForm
                                 error={error}
-                                onSubmit={this.savePortfolio}
+                                onSubmit={this.updatePortfolio}
                                 initialValues={portfolio}
                             />
                         </Col>
