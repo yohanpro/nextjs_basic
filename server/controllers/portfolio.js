@@ -65,10 +65,7 @@ exports.deletePortfolio = (req, res) => {
     const portfolioId = req.params.id;
 
     Portfolio.deleteOne({ _id: portfolioId }, (err, deletedPortfolio) => {
-        if (err) {
-            return res.status(422).send(err);
-        }
-
+        if (err) return res.status(422).send(err);
         return res.json({ status: 'DELETED' });
     });
 };

@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Col, Row, Card, CardHeader, CardBody, CardTitle, CardText, Button } from 'reactstrap';
 import BasePage from '../components/BasePage';
-import { getPortFolios } from '../actions/index';
+import { getPortFolios, deletePortfolio } from '../actions/index';
+import PortfolioCard from '../components/portfolios/PortfolioCard';
 import { Router } from '../routes';
 
 
@@ -19,35 +20,30 @@ class PortFolios extends Component {
         }
         return { portfolios };
     }
+    displayDeleteWarning(portfolioId) {
+        const confirm = window.confirm("Are you sure to delete this portfolio?");
+        if (confirm) return this.deletePortfolio(portfolioId);
+    }
 
+    deletePortfolio(portfolioId) {
+        deletePortfolio(portfolioId)
+            .then(() => Router.pushRoute('/portfolios'));
+    }
     renderPosts(portfolios) {
         const { isAuthenticated, isSiteOwner } = this.props.auth;
         return portfolios.map((portfolio, index) => {
             return (
                 <Col key={index} md="4">
-                    <React.Fragment>
-                        <span>
-                            <Card className="portfolio-card">
-                                <CardHeader className="portfolio-card-header">{portfolio.position}</CardHeader>
-                                <CardBody>
-                                    <p className="portfolio-card-city"> {portfolio.location} </p>
-                                    <CardTitle className="portfolio-card-title">{portfolio.title}</CardTitle>
-                                    <CardText className="portfolio-card-text">{portfolio.description}</CardText>
-                                    <div className="readMore">
-                                        {
-                                            isAuthenticated && isSiteOwner &&
-                                            <React.Fragment>
-                                                <Button onClick={() => Router.pushRoute(`/portfolio/${portfolio._id}/edit`)} color="warning">Edit</Button>{' '}
-                                                <Button color="danger">Update</Button>
-                                            </React.Fragment>
-                                        } </div>
-                                </CardBody>
-
-                            </Card>
-                        </span>
-                    </React.Fragment>
+                    <PortfolioCard portfolio={portfolio}>
+                        {
+                            isAuthenticated && isSiteOwner &&
+                            <React.Fragment>
+                                <Button onClick={() => Router.pushRoute(`/portfolio/${portfolio._id}/edit`)} color="warning">Edit</Button>{' '}
+                                <Button onClick={() => this.displayDeleteWarning(portfolio._id)} color="danger">Delete</Button>
+                            </React.Fragment>
+                        }
+                    </PortfolioCard>
                 </Col>
-
             );
         });
     }
@@ -55,7 +51,6 @@ class PortFolios extends Component {
     render() {
         const { portfolios } = this.props;
         const { isAuthenticated } = this.props.auth;
-        console.log(this.props);
         return (
             <BaseLayout {...this.props.auth}>
                 <BasePage className="portfolio-page" title="Portfolios">

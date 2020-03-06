@@ -34,9 +34,8 @@ class PortfolioEdit extends React.Component {
 
     updatePortfolio(portfolioData, { setSubmitting }) {
         setSubmitting(true);
-        // debugger;
         updatePortfolio(portfolioData)
-            .then((portfolio) => {
+            .then(() => {
                 setSubmitting(false);
                 this.setState({ error: undefined });
                 Router.pushRoute('/portfolios');
