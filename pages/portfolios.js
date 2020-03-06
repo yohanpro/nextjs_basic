@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import BaseLayout from '../components/layouts/BaseLayout';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -7,7 +6,7 @@ import { Col, Row, Card, CardHeader, CardBody, CardTitle, CardText, Button } fro
 import BasePage from '../components/BasePage';
 import { getPortFolios } from '../actions/index';
 import { Router } from '../routes';
-// import { Link } from '../routes';
+
 
 class PortFolios extends Component {
 
@@ -22,6 +21,7 @@ class PortFolios extends Component {
     }
 
     renderPosts(portfolios) {
+        const { isAuthenticated, isSiteOwner } = this.props.auth;
         return portfolios.map((portfolio, index) => {
             return (
                 <Col key={index} md="4">
@@ -35,7 +35,7 @@ class PortFolios extends Component {
                                     <CardText className="portfolio-card-text">{portfolio.description}</CardText>
                                     <div className="readMore">
                                         {
-
+                                            isAuthenticated && isSiteOwner &&
                                             <React.Fragment>
                                                 <Button onClick={() => Router.pushRoute(`/portfolio/${portfolio._id}/edit`)} color="warning">Edit</Button>{' '}
                                                 <Button color="danger">Update</Button>
@@ -54,11 +54,16 @@ class PortFolios extends Component {
 
     render() {
         const { portfolios } = this.props;
-
+        const { isAuthenticated } = this.props.auth;
+        console.log(this.props);
         return (
             <BaseLayout {...this.props.auth}>
                 <BasePage className="portfolio-page" title="Portfolios">
-                    <Button className="create-port-btn" color="success" onClick={() => Router.pushRoute('/portfolioNew')}>Create Portfolio</Button>
+                    {isAuthenticated &&
+                        <Button className="create-port-btn" color="success" onClick={() => Router.pushRoute('/portfolioNew')}>
+                            Create Portfolio
+                    </Button>
+                    }
                     <Row>
                         {this.renderPosts(portfolios)}
                     </Row>
