@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import BaseLayout from '../components/layouts/BaseLayout';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { Col, Row, Card, CardHeader, CardBody, CardTitle, CardText, Button } from 'reactstrap';
+import { Col, Row, Button } from 'reactstrap';
 import BasePage from '../components/BasePage';
 import { getPortFolios, deletePortfolio } from '../actions/index';
 import PortfolioCard from '../components/portfolios/PortfolioCard';
@@ -20,9 +20,14 @@ class PortFolios extends Component {
         }
         return { portfolios };
     }
-    displayDeleteWarning(portfolioId) {
+    displayDeleteWarning(portfolioId, event) {
+        event.stopPropagation();
         const confirm = window.confirm("Are you sure to delete this portfolio?");
         if (confirm) return this.deletePortfolio(portfolioId);
+    }
+    navigateToEdit(portfolioId, event) {
+        event.stopPropagation();
+        Router.pushRoute(`/portfolio/${portfolioId}/edit`);
     }
 
     deletePortfolio(portfolioId) {
@@ -38,8 +43,8 @@ class PortFolios extends Component {
                         {
                             isAuthenticated && isSiteOwner &&
                             <React.Fragment>
-                                <Button onClick={() => Router.pushRoute(`/portfolio/${portfolio._id}/edit`)} color="warning">Edit</Button>{' '}
-                                <Button onClick={() => this.displayDeleteWarning(portfolio._id)} color="danger">Delete</Button>
+                                <Button onClick={event => this.navigateToEdit(portfolio._id, event)} color="warning">Edit</Button>{' '}
+                                <Button onClick={event => this.displayDeleteWarning(portfolio._id, event)} color="danger">Delete</Button>
                             </React.Fragment>
                         }
                     </PortfolioCard>
