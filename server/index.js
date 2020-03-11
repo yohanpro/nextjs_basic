@@ -10,6 +10,7 @@ const config = require('./config');
 
 const bookRouter = require('./routes/book');
 const portfolioRouter = require('./routes/portfolio');
+const blogRouter = require('./routes/blog');
 // With express
 
 const secretData = [
@@ -43,6 +44,8 @@ app.prepare()
 
         server.use('/api/v1/books', bookRouter);
         server.use('/api/v1/portfolios', portfolioRouter);
+        server.use('/api/v1/blogs', blogRouter);
+
 
         server.get('/api/v1/secret', authServices.checkJWT, (req, res) => {
             return res.json(secretData);
