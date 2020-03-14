@@ -10,6 +10,11 @@ router.post('',
     authService.checkRole('siteOwner'),
     blogCtrl.createBlog);
 
+router.get('/:id',
+    authService.checkJWT,
+    authService.checkRole('siteOwner'),
+    blogCtrl.getBlogById);
+
 // router.get('', blogCtrl.getBooks);
 
 // router.patch('/:id', blogCtrl.updateBook);
@@ -17,4 +22,5 @@ router.post('',
 // router.delete('/:id', blogCtrl.deleteBook);
 
 module.exports = router;
+
 
