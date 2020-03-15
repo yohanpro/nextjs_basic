@@ -2,7 +2,7 @@ import React from 'react';
 import BaseLayout from '../layouts/BaseLayout';
 import BasePage from '../BasePage';
 
-const nameSpace = "http://localhost:3000/";
+const nameSpace = "http://localhost:3000";
 export default role => Component =>
     class withAuth extends React.Component {
         static async getInitialProps(args) {
@@ -12,7 +12,6 @@ export default role => Component =>
         renderProtectedPage() {
             const { isAuthenticated, user } = this.props.auth;
             const userRole = user && user[`${nameSpace}/role`];
-
             let isAuthorized = false;
 
 
@@ -43,7 +42,6 @@ export default role => Component =>
             }
         }
         render() {
-
             return this.renderProtectedPage();
         }
     };
