@@ -11,7 +11,7 @@ router.post('',
     blogCtrl.createBlog);
 
 router.get('',
-    // authService.checkJWT,
+    authService.checkJWT,
     authService.checkRole('siteOwner'),
     blogCtrl.getAllBlogs
 );
