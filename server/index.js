@@ -56,11 +56,14 @@ app.prepare()
         server.get('*', (req, res) => {
             return handle(req, res);
         });
+
         server.use(function (err, req, res, next) {
+            console.log('err', err);
             if (err.name === 'UnauthorizedError') {
                 res.status(401).send('invalid token...');
             }
         });
+
         server.use(handle).listen(3000, err => {
             if (err) throw err;
             console.log('Server is no on 3000');

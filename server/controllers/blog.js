@@ -28,3 +28,10 @@ exports.getBlogById = (req, res) => {
     });
 };
 
+exports.getAllBlogs = (req, res) => {
+    Blog.find({}, (err, allBlog) => {
+        if (err) return res.status(422).send(err);
+
+        return res.json(allBlog);
+    });
+};
