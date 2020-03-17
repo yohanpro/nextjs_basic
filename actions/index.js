@@ -51,9 +51,16 @@ export const updatePortfolio = async (portfolioData) => {
         .catch(error => rejectPromise(error));
 };
 
-
 export const deletePortfolio = async (portfolioId) => {
     return await axiosInstance.delete(`/portfolios/${portfolioId}`, setAuthHeader())
         .then(response => response.data)
         .catch(error => rejectPromise(error));
+};
+
+export const saveBlog = blogdata => {
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            res('SaveBlog Called');
+        }, 100);
+    });
 };

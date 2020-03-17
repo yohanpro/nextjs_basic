@@ -18,7 +18,6 @@ export default class SlateEditor extends React.Component {
         value: Value.create(),
         isLoaded: false
     };
-    s;
     componentDidMount() {
         const valueFromProps = this.props.initialValue;
         const value = valueFromProps ? Value.fromJSON(html.deserialize(valueFromProps)) : Value.fromJSON(initialValue);

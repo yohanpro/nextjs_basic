@@ -3,21 +3,37 @@ import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/BasePage';
 import withAuth from '../components/hoc/withAuth';
 import SlateEditor from '../components/slate-editor/Editor';
+import { saveBlog } from '../actions';
+
 
 class BlogEditor extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isSaving: false
+        };
         this.saveBlog = this.saveBlog.bind(this);
     }
-    saveBlog() {
-        console.log('save blogs');
+    saveBlog(heading) {
+        const blog = {};
+        blog.title = heading.title;
+        blog.subtitle = heading.subtitle;
+        this.setState({
+            isSaving: true
+        });
+        saveBlog().then(data => {
+            this.setState({
+                isSaving: false
+            });
+            console.log(data);
+        });
     }
     render() {
+        const { isSaving } = this.state;
         return (
             <BaseLayout {...this.props.auth}>
-                <BasePage className="blog-editor-page" title="블로그 쓰기">
-                    <h1>I'm BlogEditor Page</h1>
-                    <SlateEditor save={this.saveBlog} />
+                <BasePage className="blog-editor-page">
+                    <SlateEditor isLoading={isSaving} save={this.saveBlog} />
                 </BasePage>
             </BaseLayout>
         );
