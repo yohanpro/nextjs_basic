@@ -57,10 +57,10 @@ export const deletePortfolio = async (portfolioId) => {
         .catch(error => rejectPromise(error));
 };
 
-export const saveBlog = blogdata => {
-    return new Promise((res, rej) => {
-        setTimeout(() => {
-            res('SaveBlog Called');
-        }, 100);
-    });
+
+// -----blog-----
+export const createBlog = async blogData => {
+    return await axiosInstance.post(`/blogs`, blogData, setAuthHeader())
+        .then(response => response.data)
+        .catch(error => rejectPromise(error));
 };
