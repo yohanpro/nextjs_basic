@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import BaseLayout from '../components/layouts/BaseLayout';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+
 import { Col, Row, Button } from 'reactstrap';
 import BasePage from '../components/BasePage';
 import { getPortFolios, deletePortfolio } from '../actions/index';

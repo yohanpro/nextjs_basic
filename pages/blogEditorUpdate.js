@@ -8,9 +8,11 @@ import { getBlogById } from '../actions';
 
 class BlogEditorUpdate extends React.Component {
     static async getInitialProps({ query }) {
+
         const blogId = query.id;
         try {
             const blog = await getBlogById(blogId);
+            console.log('static query', blog);
             return { blog };
         } catch (error) {
             return { error };
@@ -25,7 +27,7 @@ class BlogEditorUpdate extends React.Component {
 
     render() {
         const { blog } = this.props;
-        console.log(blog);
+        console.log('this si blog', blog);
         const { isSaving } = this.state;
         return (
             <BaseLayout {...this.props.auth}>

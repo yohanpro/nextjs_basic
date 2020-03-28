@@ -15,10 +15,8 @@ router.get('',
     authService.checkRole('siteOwner'),
     blogCtrl.getAllBlogs
 );
-router.get('/:id',
-    authService.checkJWT,
-    authService.checkRole('siteOwner'),
-    blogCtrl.getBlogById);
+
+router.get('/:id', blogCtrl.getBlogById);
 
 module.exports = router;
 
