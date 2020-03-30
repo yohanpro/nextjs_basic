@@ -15,6 +15,7 @@
     "@auth0/auth0-spa-js": "^1.6.3",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
+    "async-lock": "^1.2.2",
     "auth0-js": "^9.8.1",
     "axios": "^0.19.1",
     "bootstrap": "^4.4.1",
@@ -37,10 +38,12 @@
     "react-dom": "^16.12.0",
     "react-emotion": "^9.2.12",
     "react-router-dom": "^5.1.2",
+    "react-toastify": "^5.5.0",
     "react-typed": "^1.2.0",
     "reactstrap": "^8.4.0",
     "slate": "^0.44.6",
     "slate-html-serializer": "^0.7.30",
-    "slate-react": "^0.21.12"
+    "slate-react": "^0.21.12",
+    "slugify": "^1.4.0"
   }
 }

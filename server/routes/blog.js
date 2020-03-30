@@ -4,20 +4,27 @@ const router = express.Router();
 const blogCtrl = require('../controllers/blog');
 const authService = require('../services/auth');
 
+router.get('', blogCtrl.getBlogs);
 
-router.post('',
-    authService.checkJWT,
+router.get('/me', authService.checkJWT,
     authService.checkRole('siteOwner'),
-    blogCtrl.createBlog);
-
-router.get('',
-    authService.checkJWT,
-    authService.checkRole('siteOwner'),
-    blogCtrl.getAllBlogs
-);
+    blogCtrl.getUserBlogs);
 
 router.get('/:id', blogCtrl.getBlogById);
 
-module.exports = router;
+router.get('/s/:slug', blogCtrl.getBlogBySlug);
 
+router.post('', authService.checkJWT,
+    authService.checkRole('siteOwner'),
+    blogCtrl.createBlog);
+
+router.patch('/:id', authService.checkJWT,
+    authService.checkRole('siteOwner'),
+    blogCtrl.updateBlog);
+
+router.delete('/:id', authService.checkJWT,
+    authService.checkRole('siteOwner'),
+    blogCtrl.deleteBlog);
+
+module.exports = router;
 
