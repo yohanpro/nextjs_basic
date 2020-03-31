@@ -10,6 +10,7 @@ import Html from 'slate-html-serializer';
 import { rules } from './rules';
 import { Value } from 'slate';
 
+
 const html = new Html({ rules });
 
 export default class SlateEditor extends React.Component {
