@@ -4,12 +4,42 @@ import BasePage from '../components/BasePage';
 import withAuth from '../components/hoc/withAuth';
 import { Container, Row, Col } from 'reactstrap';
 import { getUserBlogs } from '../actions';
+import { Link } from '../routes';
+import PortButtonDropDown from '../components/ButtonDropdown';
 
 
+const seperateBlogs = blogs => {
 
-const UserBlogs = (props) => {
+    const published = [];
+    const drafts = [];
+    blogs.forEach(blog => blog.status === 'draft' ? drafts.push(blog) : published.push(blog));
+
+    return { published, drafts };
+};
+
+const renderBlogs = blogs => {
+    return (
+        <ul className="user-blogs-list">
+            {
+                blogs.map((blog, index) => {
+                    return (
+                        <li key={index}>
+                            <Link route={`/blogs/${blog._id}/edit`}>
+                                <a>{blog.title}</a>
+                            </Link>
+                            <PortButtonDropDown />
+                        </li>
+                    );
+                })
+            }
+        </ul>
+    );
+};
+const UserBlogs = props => {
     const { blogs } = props;
-    console.log(blogs);
+
+    const { published, drafts } = seperateBlogs(blogs);
+
     return (
         <BaseLayout {...props.auth} headerType={'landing'} className="blog-listing-page">
             <div className="masthead" style={{ "backgroundImage": "url('/static/images/home-bg.jpg')" }}>
@@ -25,19 +55,22 @@ const UserBlogs = (props) => {
                     </div>
                 </Container>
             </div>
-            <BasePage className="blog-body">
+            <BasePage className="blog-user-page">
                 <Row>
                     <Col md="6" className="mx-auto text-center">
-                        Published Blgos
+                        <h2 className="blog-status-title"> Published Blogs </h2>
+                        {renderBlogs(published)}
                     </Col>
                     <Col md="6" className="mx-auto text-center">
-                        Draft
+                        <h2 className="blog-status-title"> Draft Blogs </h2>
+                        {renderBlogs(drafts)}
                     </Col>
                 </Row>
             </BasePage>
         </BaseLayout>
     );
 };
+
 UserBlogs.getInitialProps = async ({ req }) => {
     let blogs = [];
     try {
