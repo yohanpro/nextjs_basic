@@ -3,13 +3,12 @@ import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/BasePage';
 import withAuth from '../components/hoc/withAuth';
 import { Container, Row, Col } from 'reactstrap';
-import { getUserBlogs } from '../actions';
-import { Link } from '../routes';
+import { getUserBlogs, updateBlog } from '../actions';
+import { Link, Router } from '../routes';
 import PortButtonDropDown from '../components/ButtonDropdown';
 
 
 const seperateBlogs = blogs => {
-
     const published = [];
     const drafts = [];
     blogs.forEach(blog => blog.status === 'draft' ? drafts.push(blog) : published.push(blog));
@@ -27,7 +26,7 @@ const renderBlogs = blogs => {
                             <Link route={`/blogs/${blog._id}/edit`}>
                                 <a>{blog.title}</a>
                             </Link>
-                            <PortButtonDropDown />
+                            <PortButtonDropDown items={dropdownOptions(blog)} />
                         </li>
                     );
                 })
@@ -35,9 +34,30 @@ const renderBlogs = blogs => {
         </ul>
     );
 };
+
+const dropdownOptions = blog => {
+    const status = createStatus(blog.status);
+    return [
+        { text: status.view, handlers: { onClick: () => changeBlogStatus(status.value, blog._id) } },
+        { text: 'Delete', handlers: { onClick: () => deleteBlog() } }
+    ];
+};
+
+const createStatus = status => {
+    return status === 'draft' ? { view: 'Publish Story', value: 'published' }
+        : { view: 'Make a Draft', value: 'draft' };
+};
+
+const changeBlogStatus = (status, blogId) => {
+    updateBlog({ status }, blogId).then(() => {
+        Router.pushRoute('/userBlogs');
+    }).catch(err => console.error(err));
+};
+const deleteBlog = () => {
+    alert('Delete Blog');
+};
 const UserBlogs = props => {
     const { blogs } = props;
-
     const { published, drafts } = seperateBlogs(blogs);
 
     return (
