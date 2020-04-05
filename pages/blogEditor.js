@@ -27,8 +27,9 @@ class BlogEditor extends React.Component {
     saveBlog(story, heading) {
         const { lockId } = this.state;
         const blog = {};
+
         blog.title = heading.title;
-        blog.subTitle = heading.subtitle;
+        blog.subTitle = heading.subTitle;
         blog.story = story;
 
         this.setState({ isSaving: true });

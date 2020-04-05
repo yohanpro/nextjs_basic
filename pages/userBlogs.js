@@ -2,8 +2,8 @@ import React from 'react';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/BasePage';
 import withAuth from '../components/hoc/withAuth';
-import { Container, Row, Col } from 'reactstrap';
-import { getUserBlogs, updateBlog } from '../actions';
+import { Container, Row, Col, Button } from 'reactstrap';
+import { getUserBlogs, updateBlog, deleteBlogById } from '../actions';
 import { Link, Router } from '../routes';
 import PortButtonDropDown from '../components/ButtonDropdown';
 
@@ -39,7 +39,7 @@ const dropdownOptions = blog => {
     const status = createStatus(blog.status);
     return [
         { text: status.view, handlers: { onClick: () => changeBlogStatus(status.value, blog._id) } },
-        { text: 'Delete', handlers: { onClick: () => deleteBlog() } }
+        { text: 'Delete', handlers: { onClick: () => deleteBlogWarning(blog._id) } }
     ];
 };
 
@@ -53,9 +53,17 @@ const changeBlogStatus = (status, blogId) => {
         Router.pushRoute('/userBlogs');
     }).catch(err => console.error(err));
 };
-const deleteBlog = () => {
-    alert('Delete Blog');
+const deleteBlogWarning = blogId => {
+    const res = confirm("Are you Sure?");
+    if (res) deleteBlog(blogId);
 };
+const deleteBlog = blogId => {
+    deleteBlogById(blogId).then(() => {
+        Router.pushRoute('/userBlogs');
+    })
+        .catch(err => console.error(err));
+};
+
 const UserBlogs = props => {
     const { blogs } = props;
     const { published, drafts } = seperateBlogs(blogs);
@@ -68,14 +76,19 @@ const UserBlogs = props => {
                     <div className="row">
                         <div className="col-lg-8 col-md-10 mx-auto">
                             <div className="site-heading">
-                                <h1>Fresh Blogs</h1>
-                                <span className="subheading">Programming, travelling...</span>
+                                <h1>Blog Dashboard</h1>
+                                <span className="subheading">블로그를 써보아요{' '}
+                                    <Link route="/blogs/new">
+                                        <Button>Create a new Blog</Button>
+                                    </Link>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </Container>
             </div>
             <BasePage className="blog-user-page">
+
                 <Row>
                     <Col md="6" className="mx-auto text-center">
                         <h2 className="blog-status-title"> Published Blogs </h2>

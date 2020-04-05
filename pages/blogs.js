@@ -2,10 +2,41 @@ import React from 'react';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/BasePage';
 import { Container, Row, Col } from 'reactstrap';
+import { getBlogs } from '../actions';
 import { Link } from '../routes';
+import { shortenText } from '../helpers/utils';
 import moment from 'moment';
 
+
+
+const renderBlogs = blogs => {
+    return (
+        blogs.map((blog, idx) => {
+            return (
+                <div key={idx} className="post-preview">
+                    <Link route={`/blogs/${blog.slug}`}>
+                        <a>
+                            <h2 className="post-title">
+                                {shortenText(blog.title, 40)}
+                            </h2>
+                            <h3 className="post-subtitle">
+                                {shortenText(blog.subTitle, 124)}
+                            </h3>
+                        </a>
+                    </Link>
+                    <p className="post-meta">Posted by
+                        <a href="#">  {blog.author} </a>
+                        {moment(parseInt(blog.createdAt, 10)).format('LL')}</p>
+                </div>
+            );
+        })
+
+    );
+};
 const Blogs = props => {
+    const { blogs } = props;
+
+    console.log('bllg :', props);
     return (
         <BaseLayout {...props.auth} headerType={'landing'} className="blog-listing-page">
             <div className="masthead" style={{ "backgroundImage": "url('/static/images/home-bg.jpg')" }}>
@@ -26,54 +57,7 @@ const Blogs = props => {
                     <Col md="10" lg="8" className="mx-auto">
                         {
                             <React.Fragment>
-                                <div className="post-preview">
-                                    <Link route={`/blogs/blogId`}>
-                                        <a>
-                                            <h2 className="post-title">
-                                                Very Nice Blog Post
-                                            </h2>
-                                            <h3 className="post-subtitle">
-                                                How I Start Porgramming...
-                                            </h3>
-                                        </a>
-                                    </Link>
-                                    <p className="post-meta">Posted by
-                                    <a href="#"> Filip Jerga </a>
-                                        {moment().format('LLLL')}</p>
-                                </div>
-                                <hr></hr>
-                                <div className="post-preview">
-                                    <Link route={`/blogs/blogId`}>
-                                        <a>
-                                            <h2 className="post-title">
-                                                Very Nice Blog Post
-                                            </h2>
-                                            <h3 className="post-subtitle">
-                                                How I Start Porgramming...
-                                            </h3>
-                                        </a>
-                                    </Link>
-                                    <p className="post-meta">Posted by
-                                    <a href="#"> Filip Jerga </a>
-                                        {moment().format('LLLL')}</p>
-                                </div>
-                                <hr></hr>
-                                <div className="post-preview">
-                                    <Link route={`/blogs/blogId`}>
-                                        <a>
-                                            <h2 className="post-title">
-                                                Very Nice Blog Post
-                                            </h2>
-                                            <h3 className="post-subtitle">
-                                                How I Start Porgramming...
-                                            </h3>
-                                        </a>
-                                    </Link>
-                                    <p className="post-meta">Posted by
-                                        <a href="#"> Filip Jerga </a>
-                                        {moment().format('LLLL')}</p>
-                                </div>
-                                <hr></hr>
+                                {renderBlogs(blogs)}
                             </React.Fragment>
                         }
                         <div className="clearfix">
@@ -112,7 +96,7 @@ const Blogs = props => {
                                         </a>
                                     </li>
                                 </ul>
-                                <p className="copyright text-muted">Copyright &copy; Filip Jerga 2018</p>
+                                <p className="copyright text-muted">Copyright &copy; Yohan Kim 2018</p>
                             </div>
                         </Row>
                     </Container>
@@ -121,4 +105,16 @@ const Blogs = props => {
         </BaseLayout>
     );
 };
+
+Blogs.getInitialProps = async ({ req }) => {
+    let blogs = [];
+    try {
+        blogs = await getBlogs();
+    } catch (error) {
+        console.error(error);
+    }
+    return { blogs };
+};
+
+
 export default Blogs;

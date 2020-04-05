@@ -26,7 +26,6 @@ exports.getPortfolioById = (req, res) => {
 
 exports.savePortfolio = (req, res) => {
     const portfolioData = req.body;
-    console.log('req.users', req.user);
     const userId = req.user && req.user.sub;
     const portfolio = new Portfolio(portfolioData);
     portfolio.userId = userId;

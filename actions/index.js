@@ -60,7 +60,13 @@ export const deletePortfolio = async (portfolioId) => {
 
 
 // -----blog-----
+export const getBlogs = () => {
+    return axiosInstance.get('/blogs').then(response => response.data);
+};
 
+export const getBlogBySlug = (slug) => {
+    return axiosInstance.get(`/blogs/s/${slug}`).then(response => response.data);
+};
 export const getUserBlogs = async (req) => {
     return axiosInstance.get('/blogs/me', setAuthHeader(req)).then(response => response.data);
 };
@@ -78,4 +84,10 @@ export const updateBlog = (blogData, blogId) => {
     return axiosInstance.patch(`/blogs/${blogId}`, blogData, setAuthHeader())
         .then(response => response.data)
         .catch(error => rejectPromise(error));
+};
+
+export const deleteBlogById = blogId => {
+    return axiosInstance.delete(`blogs/${blogId}`, setAuthHeader())
+        .then(response => response.data)
+        .catch(err => rejectPromise(err));
 };

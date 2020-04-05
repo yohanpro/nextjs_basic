@@ -18,7 +18,6 @@ class Portfolio extends React.Component {
 
     render() {
         const { post } = this.props;
-        console.log(this.props);
         return (
             <BaseLayout>
                 <h1>{post.title}</h1>
