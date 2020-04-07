@@ -30,7 +30,7 @@ class Index extends React.Component {
             this.setState({
                 isFlipping: !this.state.isFlipping
             });
-        }, 60000);
+        }, 10000);
     }
 
 

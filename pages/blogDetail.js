@@ -13,7 +13,7 @@ const BlogDetail = props => {
             <BasePage className="blog-detail-page" >
                 <Row>
                     <Col md={{ size: 8, offset: 0 }} >
-                        <div dangerouslySetInnerHTML={{ __html: blog.story }}>
+                        <div dangerouslySetInnerHTML={{ __html: blog.story && '' }}>
                         </div>
                     </Col>
                 </Row>
