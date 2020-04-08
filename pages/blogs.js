@@ -38,7 +38,7 @@ const Blogs = props => {
 
     console.log('bllg :', props);
     return (
-        <BaseLayout {...props.auth} headerType={'landing'} className="blog-listing-page">
+        <BaseLayout {...props.auth} title="Yohan Kim - My Blogs " headerType={'landing'} className="blog-listing-page">
             <div className="masthead" style={{ "backgroundImage": "url('/static/images/home-bg.jpg')" }}>
                 <div className="overlay"></div>
                 <Container>
