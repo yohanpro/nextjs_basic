@@ -78,10 +78,11 @@ app
         res.status(401).send("invalid token...");
       }
     });
+    const PORT = process.env.PORT || 3000;
 
-    server.use(handle).listen(3000, (err) => {
+    server.use(handle).listen(PORT, (err) => {
       if (err) throw err;
-      console.log("Server is no on 3000");
+      console.log("Server is no on " + PORT);
     });
   })
   .catch((ex) => {

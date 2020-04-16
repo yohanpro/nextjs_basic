@@ -1,3 +1,4 @@
 module.exports = {
-    DB_URI: ''
-}
+  DB_URI:
+    "mongodb+srv://yohan:yohanyohan@cluster0-tym4s.mongodb.net/test?retryWrites=true&w=majority",
+};

@@ -1,39 +1,39 @@
-
-import React from 'react';
-import App, { Container } from 'next/app';
-import { ToastContainer } from 'react-toastify';
-import auth0 from '../services/auth0';
+import React from "react";
+import App, { Container } from "next/app";
+import { ToastContainer } from "react-toastify";
+import auth0 from "../services/auth0";
 
 // Stylings
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/main.scss';
-import 'react-toastify/dist/ReactToastify.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/main.scss";
+import "react-toastify/dist/ReactToastify.css";
 
-const namespace = "http://localhost:3000";
+// const namespace = "http://localhost:3000";
 export default class MyApp extends App {
+  static async getInitialProps({ Component, router, ctx }) {
+    let pageProps = {};
+    const user = process.browser
+      ? await auth0.clientAuth()
+      : await auth0.serverAuth(ctx.req);
 
-    static async getInitialProps({ Component, router, ctx }) {
-        let pageProps = {};
-        const user = process.browser ? await auth0.clientAuth() : await auth0.serverAuth(ctx.req);
-
-        if (Component.getInitialProps) {
-            pageProps = await Component.getInitialProps(ctx);
-        }
-        const isSiteOwner = user && user[namespace + '/role'] === 'siteOwner';
-
-        const auth = { user, isAuthenticated: !!user, isSiteOwner };
-        return { pageProps, auth };
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
     }
+    const isSiteOwner =
+      user && user[process.env.NAMESPACE + "/role"] === "siteOwner";
 
-    render() {
-        const { Component, pageProps, auth } = this.props;
+    const auth = { user, isAuthenticated: !!user, isSiteOwner };
+    return { pageProps, auth };
+  }
 
-        return (
+  render() {
+    const { Component, pageProps, auth } = this.props;
 
-            <Container>
-                <ToastContainer />
-                <Component {...pageProps} auth={auth} />
-            </Container>
-        );
-    }
+    return (
+      <Container>
+        <ToastContainer />
+        <Component {...pageProps} auth={auth} />
+      </Container>
+    );
+  }
 }
