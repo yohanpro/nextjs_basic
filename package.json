@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node server/index.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server/index.js"
+    "start": "NODE_ENV=production node server/index.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -46,5 +47,8 @@
     "slate-html-serializer": "^0.7.30",
     "slate-react": "^0.21.12",
     "slugify": "^1.4.0"
+  },
+  "devDependencies": {
+    "jest": "^25.3.0"
   }
 }
