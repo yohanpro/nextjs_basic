@@ -28,8 +28,6 @@ const renderBlogs = (blogs) => {
 };
 const Blogs = (props) => {
   const { blogs } = props;
-
-  console.log("bllg :", props);
   return (
     <BaseLayout
       {...props.auth}
