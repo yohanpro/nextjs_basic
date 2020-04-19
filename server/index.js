@@ -3,7 +3,7 @@ const next = require("next");
 const routes = require("../routes.js");
 const mongoose = require("mongoose");
 const path = require("path");
-
+const compression = require("compression");
 const app = next({ dev: process.env.NODE_ENV !== "production" });
 const handle = routes.getRequestHandler(app);
 const authServices = require("./services/auth");
@@ -46,6 +46,7 @@ app
   .prepare()
   .then(() => {
     const server = express();
+    server.use(compression());
     server.use(express.json());
     server.use(express.urlencoded({ extended: true }));
 

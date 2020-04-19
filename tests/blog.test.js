@@ -1,5 +1,7 @@
-const str = "Hello World";
+import * as actions from "../actions";
 
-test("HelloWorld Component", () => {
-  expect(str).toBe("Hello World");
+test("HelloWorld Component", async (done) => {
+  let result = await actions.getBlogs();
+  expect(result).equal("abacd");
+  done();
 });

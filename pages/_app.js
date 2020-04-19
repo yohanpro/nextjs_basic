@@ -30,10 +30,10 @@ export default class MyApp extends App {
     const { Component, pageProps, auth } = this.props;
 
     return (
-      <Container>
-        <ToastContainer />
+      <div>
         <Component {...pageProps} auth={auth} />
-      </Container>
+        <ToastContainer />
+      </div>
     );
   }
 }
