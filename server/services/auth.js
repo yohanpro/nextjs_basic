@@ -15,7 +15,7 @@ exports.checkJWT = jwt({
 
 exports.checkRole = (role) => (req, res, next) => {
   const user = req.user;
-  console.log("namespacpe", process.env);
+  console.log("namespacpe", process.env.NODE_ENV);
   if (user && user[process.env.NAMESPACE + "/role"] === role) {
     next();
   } else {
