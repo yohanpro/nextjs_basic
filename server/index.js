@@ -32,7 +32,7 @@ const robotsOptions = {
     "Content-Type": "text/plain;charset=UTF-8",
   },
 };
-
+console.log(config);
 mongoose
   .connect(config.DB_URI, {
     useNewUrlParser: true,
