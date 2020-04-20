@@ -1,8 +1,6 @@
 const prod = process.env.NODE_ENV === "production";
 
 module.exports = {
-  "process.env.DB_URI":
-    "mongodb+srv://yohanKim:yohanKim@cluster0-kpmtn.mongodb.net/test?retryWrites=true&w=majority",
   "process.env.BASE_URL": prod
     ? "https://portfolio-yohan.herokuapp.com"
     : "http://localhost:3000",
