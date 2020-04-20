@@ -32,14 +32,13 @@ const robotsOptions = {
     "Content-Type": "text/plain;charset=UTF-8",
   },
 };
+
 mongoose
   .connect(config.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => {
-    console.log("Database Connected");
-  })
+  .then(() => console.log("Database Connected"))
   .catch((err) => err);
 
 app
