@@ -107,6 +107,6 @@ dist
 /server/.next
 
 
-# /server/config/dev.js
+/server/config/dev.js
 
-# /server/config/prod.js
+/server/config/prod.js
